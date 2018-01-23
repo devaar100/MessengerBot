@@ -67,7 +67,7 @@ def handlePostback(sender_PSID, rcv_postback):
     callSendAPI(sender_PSID, resp)
 
 def callSendAPI(sender_PSID, response):
-    bot.send_text_message(sender_PSID, response)
+    bot.send_generic_message(sender_PSID, response)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
