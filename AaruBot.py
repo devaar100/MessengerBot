@@ -7,6 +7,7 @@ from modules.news import *
 from modules.wiki import *
 from modules.quotes import *
 from modules.songs import *
+from requests_toolbelt import MultipartEncoder
 
 
 app = Flask(__name__)
@@ -76,10 +77,10 @@ def handleMessage(sender_PSID, msg):
             fin_resp= "Please use following format\n/suggestions Your-Suggestion"
     elif txt[0] == '/memes':
         print(SRCDIR)
-        path = os.path.join(SRCDIR,'meme.jpg')
+        path = os.path.join(SRCDIR,'meme.png')
         resp = get_memes()
         if resp=="done":
-            print(bot.send_image(sender_PSID, path))
+            sendImg(sender_PSID, path)
     elif txt[0] == '/bugdata':
         fin_resp = getBugData()
     elif txt[0] == '/sugdata':
@@ -113,7 +114,9 @@ def handleMessage(sender_PSID, msg):
         else:
             fin_resp = "No message provided"
     elif txt[0].lower() in ['hi','hello','hey']:
-        fin_resp = 'Hi \nLets have fun :D'
+        bot.send_text_message(sender_PSID,'Hi \nLets have fun :D')
+        fin_resp = welcome()
+
     elif txt[0].lower() in ['thanks','bye','love']:
         fin_resp = "Bubyee :D"
     elif txt[0] == '/lyrics':
@@ -166,6 +169,9 @@ def handleMessage(sender_PSID, msg):
             ]
             bot.send_button_message(sender_PSID, "Select song to download", buttons)
             fin_resp = ''
+    elif 'chinu' in str(txt[0]).lower():
+        fin_resp = ''
+        bot.send_text_message(sender_PSID, 'I love you chinu <3')
     else:
         ## Type is unknown
         fin_resp = welcome()
@@ -173,6 +179,34 @@ def handleMessage(sender_PSID, msg):
         bot.send_text_message(sender_PSID, fin_resp)
     return "Ok"
 
+def sendImg(recipient_id, image_path):
+
+    params = {
+        "access_token": PAGE_ACCESS_TOKEN
+    }
+    data = {
+        # encode nested json to avoid errors during multipart encoding process
+        'recipient': json.dumps({
+            'id': recipient_id
+        }),
+        # encode nested json to avoid errors during multipart encoding process
+        'message': json.dumps({
+            'attachment': {
+                'type': 'image',
+                'payload': {}
+            }
+        }),
+        'filedata': (image_path, open('meme.png', 'rb'), 'image/png')
+    }
+    multipart_data = MultipartEncoder(data)
+    multipart_header = {
+        'Content-Type': multipart_data.content_type
+    }
+
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=multipart_header, data=multipart_data)
+    if r.status_code != 200:
+        print(r.status_code)
+        print(r.text)
 
 def handlePostback(sender_PSID, rcv_postback):
     print(rcv_postback)

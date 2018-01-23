@@ -15,7 +15,7 @@ def get_memes():
     res = requests.get(memeurl)
     soup = BS(res.text,'html.parser')
     result = [x['src'] for x in soup.findAll('img', {'class': 'post-image'})]
-    file = open('meme.jpg','wb')
+    file = open('meme.png','wb')
     res = requests.get(random.choice(result))
     for i in res.iter_content(1000):
         file.write(i)
