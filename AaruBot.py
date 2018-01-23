@@ -33,7 +33,7 @@ def webhook():
 
                 sender_id = messaging_event['sender']['id']
                 recipient_id = messaging_event['recipient']['id']
-                print sender_id, recipient_id
+                print(sender_id, recipient_id)
 
                 if messaging_event['message']:
                     # HANDLE NORMAL MESSAGES HERE
