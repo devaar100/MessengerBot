@@ -60,7 +60,7 @@ def handleMessage(sender_PSID, rcv_msg):
               }]
     element = Element(title="test", subtitle="subtitle", buttons= buttons)
     elements.append(element)
-    callSendAPI(sender_PSID, resp)
+    callSendAPI(sender_PSID, elements)
 
 def handlePostback(sender_PSID, rcv_postback):
     resp = 'The message you sent is {}'.format(rcv_postback)
