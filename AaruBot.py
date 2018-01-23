@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/webhook',methods=['GET'])
+@app.route('/',methods=['GET'])
 def verify():
     print(request.data)
     VERIFY_TOKEN = 'Aaru'
