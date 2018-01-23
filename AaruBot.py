@@ -11,6 +11,7 @@ from modules.songs import *
 
 app = Flask(__name__)
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
+SRCDIR = os.path.dirname(os.path.abspath(__file__))
 PAGE_ACCESS_TOKEN = os.environ.get('PAGE_ACCESS_TOKEN')
 bot = Bot(PAGE_ACCESS_TOKEN)
 
@@ -75,9 +76,11 @@ def handleMessage(sender_PSID, msg):
         else:
             fin_resp= "Please use following format\n/suggestions Your-Suggestion"
     elif txt[0] == '/memes':
+        print(SRCDIR)
+        path = os.path.join(SRCDIR,'meme.jpg')
         resp = get_memes()
         if resp=="done":
-            bot.send_image(sender_PSID, 'meme.jpg')
+            bot.send_image(sender_PSID, path)
     elif txt[0] == '/bugdata':
         fin_resp = getBugData()
     elif txt[0] == '/sugdata':
