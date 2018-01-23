@@ -21,7 +21,6 @@ itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 mccabe==0.6.1
-mechanize==0.3.6
 pathlib==1.0.1
 pew==1.0.2
 pipenv==8.2.7
