@@ -44,14 +44,12 @@ def webhook():
                 recipient_id = messaging_event['recipient']['id']
                 print(messaging_event)
 
-                if messaging_event['message']:
-                    if messaging_event['message']['text']:
-                        query = messaging_event['message']['text']
-                        handleMessage(sender_id, query)
-
-                    elif messaging_event['postback']:
-                        query = messaging_event['postback']['payload']
-                        handlePostback(sender_id, query)
+                if messaging_event.get('message') is not None:
+                    query = messaging_event['message']['text']
+                    handleMessage(sender_id, query)
+                elif messaging_event.get('postback') is not None:
+                    query = messaging_event['postback']['payload']
+                    handlePostback(sender_id, query)
             return 'SEND_OK',200
     else :
         return 404
@@ -81,7 +79,7 @@ def handleMessage(sender_PSID, msg):
         path = os.path.join(SRCDIR,'meme.jpg')
         resp = get_memes()
         if resp=="done":
-            bot.send_image(sender_PSID, path)
+            print bot.send_image(sender_PSID, path)
     elif txt[0] == '/bugdata':
         fin_resp = getBugData()
     elif txt[0] == '/sugdata':
