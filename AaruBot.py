@@ -77,9 +77,7 @@ def handleMessage(sender_PSID, msg):
     elif txt[0] == '/memes':
         resp = get_memes()
         if resp=="done":
-            file = open("meme.jpg", 'rb')
-            bot.send_image(sender_PSID, file)
-            file.close()
+            bot.send_image(sender_PSID, 'meme.jpg')
     elif txt[0] == '/bugdata':
         fin_resp = getBugData()
     elif txt[0] == '/sugdata':
