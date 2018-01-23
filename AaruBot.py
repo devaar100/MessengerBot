@@ -79,7 +79,7 @@ def handleMessage(sender_PSID, msg):
         path = os.path.join(SRCDIR,'meme.jpg')
         resp = get_memes()
         if resp=="done":
-            print bot.send_image(sender_PSID, path)
+            print(bot.send_image(sender_PSID, path))
     elif txt[0] == '/bugdata':
         fin_resp = getBugData()
     elif txt[0] == '/sugdata':
