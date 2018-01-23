@@ -56,7 +56,7 @@ def webhook():
 
 def handleMessage(sender_PSID, msg):
     print(msg)
-    txt = msg['text'].split(' ',1)
+    txt = msg.split(' ',1)
     fin_resp = ''
     if txt[0] == '/jokes':
         fin_resp = get_jokes()
