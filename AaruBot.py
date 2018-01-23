@@ -3,11 +3,6 @@ import os
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
 @app.route('/webhook',methods=['GET'])
 def verify():
     print(request.data)
@@ -21,7 +16,6 @@ def verify():
             return challenge,200
         else :
             return 'Forbidden',403
-    return 'Hello world'
 
 @app.route('/webhook',methods= ['POST'])
 def webhook():
