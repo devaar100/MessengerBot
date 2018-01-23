@@ -1,1 +1,1 @@
-web: gunicorn Aaru:app $PORT
+web: gunicorn AaruBot:app $PORT
