@@ -1,6 +1,6 @@
 from flask import Flask, request
 import os
-from pymessenger import Bot
+from pymessenger import Bot, Element
 
 app = Flask(__name__)
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
@@ -47,6 +47,19 @@ def webhook():
 
 def handleMessage(sender_PSID, rcv_msg):
     resp = 'The message you sent is {}'.format(rcv_msg)
+    elements = []
+    buttons = [{
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }]
+    element = Element(title="test", subtitle="subtitle", buttons= buttons)
+    elements.append(element)
     callSendAPI(sender_PSID, resp)
 
 def handlePostback(sender_PSID, rcv_postback):
