@@ -178,24 +178,24 @@ def handleMessage(sender_PSID, msg):
 def handlePostback(sender_PSID, rcv_postback):
     print(rcv_postback)
     bot.send_text_message(sender_PSID, 'In handle postback')
-    # if rcv_postback== "morenews":
-    #     bot.answerCallbackQuery(callback_query_id=query_id, text='Loading More News')
-    #     response = get_news()[2:]
-    #     bot.sendMessage(from_id, random.choice(response))
-    #
-    #     keyboardNews = InlineKeyboardMarkup(inline_keyboard=[
-    #         [InlineKeyboardButton(text='More News', callback_data="morenews")]
-    #     ])
-    #     bot.sendMessage(chat_id=from_id, text="Click below for more", reply_markup=keyboardNews)
-    # else:
-    #     query, type = query_data.split(' ')
-    #     if type == 'song':
-    #         bot.answerCallbackQuery(callback_query_id=query_id, text="Fetching your song")
-    #         name = download_song(query_data.split(' ')[0])
-    #         bot.answerCallbackQuery(callback_query_id=query_id, text="Donwloading your song")
-    #         song = open(name, 'rb')
-    #         bot.sendAudio(chat_id=from_id, audio=song)
-    #         song.close()
+    if rcv_postback== "morenews":
+        bot.answerCallbackQuery(callback_query_id=query_id, text='Loading More News')
+        response = get_news()[2:]
+        bot.sendMessage(from_id, random.choice(response))
+
+        keyboardNews = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text='More News', callback_data="morenews")]
+        ])
+        bot.sendMessage(chat_id=from_id, text="Click below for more", reply_markup=keyboardNews)
+    else:
+        query, type = query_data.split(' ')
+        if type == 'song':
+            bot.answerCallbackQuery(callback_query_id=query_id, text="Fetching your song")
+            name = download_song(query_data.split(' ')[0])
+            bot.answerCallbackQuery(callback_query_id=query_id, text="Donwloading your song")
+            song = open(name, 'rb')
+            bot.sendAudio(chat_id=from_id, audio=song)
+            song.close()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
