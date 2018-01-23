@@ -10,12 +10,12 @@ def hello_world():
 
 @app.route('/webhook',methods=['GET'])
 def verify():
-    print request.data
+    print(request.data)
     VERIFY_TOKEN = 'Aaru'
     mode = request.args.get('hub.mode')
     token = request.args.get('hub.verify_token')
     challenge = request.args.get('hub.challenge')
-    print mode, token, challenge
+    print(mode, token, challenge)
     if mode and token :
         if mode == 'subscribe' and token == VERIFY_TOKEN :
             return challenge,200
@@ -26,7 +26,7 @@ def verify():
 @app.route('/webhook',methods= ['POST'])
 def webhook():
     body = request.get_json()
-    print body
+    print(body)
     if body['object'] == 'page' :
         for entry in body['entry']:
             webhook_event = entry['messaging'][0]
