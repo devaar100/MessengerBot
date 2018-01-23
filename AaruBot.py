@@ -13,7 +13,7 @@ app = Flask(__name__)
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
 SRCDIR = os.path.dirname(os.path.abspath(__file__))
 PAGE_ACCESS_TOKEN = os.environ.get('PAGE_ACCESS_TOKEN')
-bot = Bot(PAGE_ACCESS_TOKEN)
+bot = Bot(PAGE_ACCESS_TOKEN,base_url= 'https://graph.facebook.com/v2.6/me/messages?access_token={}'.format(PAGE_ACCESS_TOKEN))
 
 @app.route('/',methods=['GET'])
 def verify():
