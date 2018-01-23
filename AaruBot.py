@@ -17,7 +17,7 @@ def verify():
         else :
             return 'Forbidden',403
 
-@app.route('/webhook',methods= ['POST'])
+@app.route('/',methods= ['POST'])
 def webhook():
     body = request.get_json()
     print(body)
