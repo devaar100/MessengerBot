@@ -3,10 +3,10 @@ import requests, random
 
 
 def get_jokes():
-    jokeurl = 'https://www.rd.com/jokes/family/'
+    jokeurl = 'http://www.santabanta.com/jokes/'
     res = requests.get(jokeurl)
-    soup = BS(res.text,'html.parser')
-    result = soup.find_all('div', {'class':'jokes-river--content'})
+    soup = BS(res.text, 'html.parser')
+    result = soup.find_all('td')
     return random.choice(result).text
 
 
